@@ -10,7 +10,7 @@ INFERENCE_MODEL_NAME = "gemma3:4b-it-q4_K_M"
 
 embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL_NAME)
 vectorDB = Chroma(persist_directory="vectordb", embedding_function=embeddings)
-retriever = vectorDB.as_retriever(search_type="mmr")
+retriever = vectorDB.as_retriever(search_type="mmr", search_kwargs={"k": 5})
 
 os.system("clear")
 
