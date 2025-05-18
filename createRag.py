@@ -7,6 +7,7 @@ import csv
 from pathlib import Path
 from pypdf.errors import FileNotDecryptedError
 from langchain.schema import Document
+from itertools import islice
 
 csv.field_size_limit(10 * 1024 * 1024)
 
@@ -37,6 +38,7 @@ splits = text_splitter.split_documents(pages)
 csv_file = Path('.data/emails.csv')
 with open(csv_file, 'r', encoding='utf-8') as f:
     reader = csv.DictReader(f)
+    # for row in islice(reader, 10):
     for row in reader:
         # Format each email into a single string
         email_text = f"""
@@ -54,6 +56,7 @@ Subject: {row['subject']}
         #     email_text += f"\n[Image Attachments: {row['image_attachments']}]"
 
         if len(email_text) <= 7000:
+            # print(email_text.strip())
             splits.append(Document(page_content=email_text.strip()))
         else:
             print(f"Email von {row['from']} übersprungen, Länge: {len(email_text)}")
