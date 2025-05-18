@@ -1,0 +1,9 @@
+mailbox
+beautifulsoup4
+langchain_community
+langchain
+langchain_chroma
+langchain_ollama
+ollama
+pypdf
+cryptography
