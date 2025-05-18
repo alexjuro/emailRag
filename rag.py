@@ -8,17 +8,18 @@ import csv
 from pathlib import Path
 from pypdf.errors import FileNotDecryptedError
 
+csv.field_size_limit(10 * 1024 * 1024)
+
 EMBEDDING_MODEL_NAME = "nomic-embed-text"
 INFERENCE_MODEL_NAME = "gemma3:4b-it-q4_K_M"
 
+os.system("clear")
 os.system("rm -rf ./vectordb")
-
 print("Lade E-Mails ...")
 
 pdf_dir = Path("./.data/attachments/pdf/")
 pages = []
 
-# Durchsuche alle PDF-Dateien und lade nur unverschlüsselte
 for pdf_file in pdf_dir.glob("*.pdf"):
     try:
         loader = PyPDFLoader(str(pdf_file))
@@ -35,8 +36,6 @@ splits = text_splitter.split_documents(pages)
 
 # CSV-Datei später verarbeiten
 csv_file = Path('.data/emails.csv')
-
-# Read the CSV and convert each row to a string format
 with open(csv_file, 'r', encoding='utf-8') as f:
     reader = csv.DictReader(f)
     for row in reader:
