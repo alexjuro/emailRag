@@ -2,3 +2,5 @@
 env
 *.mbox
 vectordb
+build
+__pycache__

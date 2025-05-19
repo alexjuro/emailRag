@@ -1,5 +1,6 @@
 mailbox
 beautifulsoup4
+bs4
 langchain_community
 langchain
 langchain_chroma
